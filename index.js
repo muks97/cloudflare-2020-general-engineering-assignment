@@ -1,22 +1,12 @@
+//Name: Mukesh Viswanathan
+//multiple
+const links = [ { "name": "reddit", "url": "https://www.reddit.com/r/ProgrammerHumor/comments/j96xeo/id_still_need_a_2nd_monitor/?utm_source=share&utm_medium=web2x&context=3"},
+  { "name": "Youtube", "url": "https://www.youtube.com/watch?v=7H6doOmS-eM" },
+  { "name": "Cloudflare", "url": "https://developers.cloudflare.com/workers/examples/aggregate-requests" }
+]
 addEventListener("fetch", event => {
   return event.respondWith(handleRequest(event));
 });
-//multiple
-const links = [
-  {
-    "name": "reddit",
-    "url": "https://www.reddit.com/r/ProgrammerHumor/comments/j96xeo/id_still_need_a_2nd_monitor/?utm_source=share&utm_medium=web2x&context=3"
-  },
-  {
-    "name": "Youtube",
-    "url": "https://www.youtube.com/watch?v=7H6doOmS-eM"
-  },
-  {
-    "name": "Cloudflare",
-    "url": "https://developers.cloudflare.com/workers/examples/aggregate-requests"
-  }
-]
-
 //color gray
 
 //links on display. Error on picture icon.
@@ -33,28 +23,13 @@ class linksTransformer {
 
 }
 
-class profileTransformer {
-  async element(element) {
-    element.removeAttribute('style');
-    element.get
-  }
-}
-class socialnetworkTransformer {
-  async element(element) {
-    element.removeAttribute('style');
-    element.append("<a href=\"https://linkedin.com/in/mukeshvi\"><img src=\"https://www.flaticon.com/svg/static/icons/svg/61/61109.svg\"></a>", { html: true })
-    element.append("<a href=\"https://github.com/muks97\"><img src=\"https://www.flaticon.com/svg/static/icons/svg/37/37318.svg\"></a>", { html: true })
-  }
-}
 
-class titleTransformer {
+
+class followmeTransformer {
   async element(element) {
-    element.setInnerContent("Mukesh viswanathan");
-  }
-}
-class nameTransformer {
-  async element(element) {
-    element.setInnerContent("Mukesh Viswanathan");
+    element.removeAttribute('style'); 
+    element.append("<a href=\"https://www.linkedin.com/in/mukeshvi?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bn%2B83gb5OQvOKoJirW8y9wg%3D%3D\"><img src=\"https://www.flaticon.com/svg/static/icons/svg/61/61109.svg\"></a>", { html: true })
+    element.append("<a href=\"https://github.com/muks97\"><img src=\"https://www.flaticon.com/svg/static/icons/svg/37/37318.svg\"></a>", { html: true })
   }
 }
 
@@ -81,10 +56,10 @@ async function handleRequest(event) {
 
     return new HTMLRewriter()
     .on("div#links", new linksTransformer())
-    .on("div#profile", new profileTransformer())
-    .on("h1#name", new nameTransformer())
-    .on("div#social", new socialnetworkTransformer())
-    .on("title", new titleTransformer())
+    .on("div#profile", { element: (element) => element.removeAttribute("style") })
+    .on("h1#name",{ element: (element) => element.setInnerContent("Mukesh Viswanathan") })
+    .on("div#social", new followmeTransformer())
+    .on("title", { element: (element) => element.setInnerContent("Mukesh Viswanathan") })
     .on("body", { element: (element) => element.setAttribute("class", "bg-gray-500") })
     .transform(Response);
   } else {
